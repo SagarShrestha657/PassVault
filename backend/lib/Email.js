@@ -61,7 +61,7 @@ export const sendWelcomeEmail = async (recipientEmail) => {
             <p style="font-size: 16px; margin-bottom: 15px;">Congratulations! Your email has been successfully verified.</p>
             <p style="font-size: 14px;">We’re excited to have you on board. Get ready to explore amazing features and be part of our growing community.</p>
             
-            <a href="${dashboardLink}" style="display: inline-block; margin-top: 20px; padding: 10px 20px; font-size: 16px; font-weight: bold; color: #2193b0; background: #ffffff; border-radius: 5px; text-decoration: none; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+            <a href="/home" style="display: inline-block; margin-top: 20px; padding: 10px 20px; font-size: 16px; font-weight: bold; color: #2193b0; background: #ffffff; border-radius: 5px; text-decoration: none; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
                 Go to Dashboard
             </a>
             
