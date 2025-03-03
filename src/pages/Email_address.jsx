@@ -30,8 +30,8 @@ const Email_address = () => {
   }
   return (
     <>
-      <div className='w-full h-screen flex justify-center items-center'>
-        <div className='w-72  h-fit flex-col  my-auto sm:w-96 flex'>
+      <div className="w-full h-screen flex justify-center items-center ">
+        <div className='w-72  h-fit flex-col  my-auto sm:w-96 flex '>
           <h2 className='mt-3 text-center font-bold text-2xl'>Creative Threads</h2>
           <h4 className='mt-3 text-center font-medium text-xl'>Find your Account</h4>
           <p className='mt-3 mb-4  font-normal'>Enter your email address</p>

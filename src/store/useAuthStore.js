@@ -5,24 +5,31 @@ import { toast } from "react-toastify";
 
 export const useAuthStore = create(persist((set) => ({
   authUser: null,
+  token:false,
  
   checkAuth: async () => {
     try {
-      const res = await axiosInstance.get("/checkauth",{withCredentials:true,});
+      await axiosInstance.get("/checkauth",{withCredentials:true,});
+      set({token:true});
     } catch (error) {
-      toast.error(error.response.data.message);
       set({ authUser: null });
+      set({token:false});
     } 
   },
 
-  user: async (data) => {
+  user: (data) => {
     set({ authUser: data });
   },
+
+  // settoken:()=>{
+  //   set({token:true});
+  // },
 
   logout: async () => {
     try {
       await axiosInstance.post("/logout",{withCredentials:true,})
       set({ authUser: null });
+      set({token:false});
     } catch (error) {
       toast.error(error.response.data.message);
     }

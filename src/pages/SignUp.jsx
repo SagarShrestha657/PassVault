@@ -24,10 +24,9 @@ const SignUp = () => {
 
 
     const savesignup = async () => {
-        // console.log(signup)
         try {
             const res = await axiosInstance.post("/signup", signup)
-            user(res)
+            user(res.data)
             navigate("/emailverification")
         } catch (error) {
             if (error.response.data.message) {
@@ -43,8 +42,8 @@ const SignUp = () => {
     }
     return (
         <>
-            <div className="w-full h-screen flex justify-center items-center bg-[url('public/background_Image.png')] ">
-                <div className="w-72  h-fit sm:w-96 ">
+            <div className="w-full h-screen flex justify-center items-center bg-[url('public/background_Image.png')] bg-cover ">
+                <div className="w-72  h-fit sm:w-96 shadow-2xl rounded-lg">
                     <h2 className="mt-3 text-center font-bold text-2xl text-white">
                         Creative Threads
                     </h2>
@@ -90,7 +89,7 @@ const SignUp = () => {
                         />
                         <label className="pl-4 mb-1 font-semibold ">Password</label>
                         <input
-                            className="bg-white  outline-none  rounded-md mx-4 mb-3 pl-2"
+                            className="bg-white  outline-none  rounded-md mx-4 mb-1 pl-2"
                             type="password"
                             required
                             value={signup.password}
@@ -98,7 +97,7 @@ const SignUp = () => {
                             name="password"
                         />
                         {error && (
-                            <div className="text-red-700 font-light pl-4 text-xs" mb-3>
+                            <div className="text-red-700 font-light pl-4 text-sm mb-2">
                                 {error}
                             </div>
                         )}

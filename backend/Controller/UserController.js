@@ -139,7 +139,7 @@ export const emailAddressCheck = async (req, res) => {
 export const addlogin = async (req, res) => {
   try {
     const { Website, username, password, } = req.body;
-    const user = await User.findByIdAndUpdate(req.user.userId,{$push:{logins:{Website,username,password}}}, );
+    const user = await User.findByIdAndUpdate(req.user.userId.ObjectId,{$push:{logins:{Website,username,password}}}, );
     if(!user) res.status(400).json({ message: "user doesn't exists" });
     res.status(201).json({ message: "successfully added"});
 
@@ -152,7 +152,7 @@ export const deletelogin = async (req, res) => {
   try {
     const {_id} = req.body;
     if (_id) {
-      const deletelogin = await User.findByIdAndUpdate(req.user.userId, {$pull:{logins:{_id}}},{new:true} );
+      const deletelogin = await User.findByIdAndUpdate(req.user.userId.ObjectId, {$pull:{logins:{_id}}},{new:true} );
       console.log(deletelogin)
       if (!deletelogin) {
         return res.status(404).json({ message: "logins not found" });
@@ -168,7 +168,7 @@ export const deletelogin = async (req, res) => {
 
 export const logins = async (req, res) => {
   try {
-    const login = await User.findOne(req.user.iserid)
+    const login = await User.findOne(req.user.userId.ObjectId)
     if (!login) {
       return res.status(404).json({ message: "logins not found" });
     }
@@ -178,5 +178,14 @@ export const logins = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ message: "error while fetch", error: error.message })
+  }
+}
+
+export const checkauth = (req,res)=>{
+  try{
+    if(req.user.userId) return res.status(200).json({message:"token is provided"})
+    res.status(401).json({meaasge:"token not provided"})
+  } catch (error) {
+    res.status(500).json({ error: error.message })
   }
 }

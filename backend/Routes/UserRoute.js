@@ -5,9 +5,9 @@ import {
   login,
   logout,
   signup,
-  addlogin,deletelogin,logins
+  addlogin,deletelogin,logins,checkauth
 } from "../Controller/UserController.js";
-import { protectedRoute } from "../Middleware/UserMiddleware.js";
+import { protectedRoute } from "../Middleware/ProtectedRoute.js";
 
 const UserRouter = express.Router();
 
@@ -21,7 +21,7 @@ UserRouter.post("/login", login);
 
 UserRouter.post("/logout", logout);
 
-UserRouter.get("/checkauth", protectedRoute);
+UserRouter.get("/checkauth", protectedRoute,checkauth);
 
 UserRouter.post("/add",protectedRoute,addlogin);
 
