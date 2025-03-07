@@ -18,10 +18,9 @@ const Email_verification = () => {
         if (code) {
             try {
                 const email = User.data.email;
-                const res = await axiosInstance.post("/emailverification", { code, email })
+                await axiosInstance.post("/emailverification", { code, email })
                 settoken()
                 navigate("/")
-
             } catch (error) {
 
                 if (error.response.data.message) {
@@ -30,7 +29,6 @@ const Email_verification = () => {
                     seterror("something went wrong. please try again .")
                 }
             }
-
         }
     }
 

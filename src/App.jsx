@@ -17,15 +17,14 @@ function App() {
   const User = useAuthStore((state) => state.authUser)
   const token = useAuthStore((state) => state.token)
 
-
+  
   const { checkAuth } = useAuthStore()
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    checkAuth()
+  //   checkAuth()
 
-  }, [useLocation.pathname])
-
+  // }, [useLocation.pathname])
 
   const router = createBrowserRouter([
     {

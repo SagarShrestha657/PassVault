@@ -10,13 +10,11 @@ const Login = () => {
   const navigate = useNavigate();
   const [error, seterror] = useState()
 
-  const { user, settoken } = useAuthStore()
+  const { user } = useAuthStore()
 
   const login_handlechange = (e) => {
     setlogin({ ...login, [e.target.name]: e.target.value })
   }
-
-
 
   const savelogin = async () => {
     try {
