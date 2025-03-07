@@ -2,9 +2,11 @@ import express from "express";
 import dotenv from "dotenv";
 import { ConnectDB } from "./lib/db.js";
 import cookieParser from "cookie-parser";
-import {UserRoute,LoginsRoute,TrashloginsRoute} from "./Routes"
+import LoginsRoute from "./Routes/LoginsRoute.js"
+import UserRoute from "./Routes/UserRoute.js"
+import TrashloginsRoute from "./Routes/TrashloginsRoute.js";
 import cors from 'cors';
-import { protectedRoute } from "../Middleware/ProtectedRoute";
+import  {protectedRoute}  from "./Middleware/ProtectedRoute.js";
 
 // Configuration of dotenv 
 dotenv.config();
