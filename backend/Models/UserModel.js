@@ -32,6 +32,10 @@ const userschema = new mongoose.Schema(
                 type:"string",
                 required:true,
             },
+            trash:{
+                type:Boolean,
+                default:false,
+            },
         }],
 
     }
