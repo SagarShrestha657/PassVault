@@ -5,7 +5,7 @@ import {
   login,
   logout,
   signup,
-  addlogin,deletelogin,logins,checkauth
+  checkauth,
 } from "../Controller/UserController.js";
 import { protectedRoute } from "../Middleware/ProtectedRoute.js";
 
@@ -22,11 +22,5 @@ UserRouter.post("/login", login);
 UserRouter.post("/logout", logout);
 
 UserRouter.get("/checkauth", protectedRoute,checkauth);
-
-UserRouter.post("/add",protectedRoute,addlogin);
-
-UserRouter.delete("/delete",protectedRoute,deletelogin);
-
-UserRouter.get("/getall",protectedRoute,logins);
 
 export  default UserRouter;

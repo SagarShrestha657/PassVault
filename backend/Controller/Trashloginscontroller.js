@@ -1,4 +1,4 @@
-import User from "../Models/UserModel";
+import User from "../Models/UserModel.js";
 
 export const restorelogin = async (req, res) => {
     try {
@@ -6,7 +6,7 @@ export const restorelogin = async (req, res) => {
         if (_id) {
             const restorelogin = await User.findOneAndUpdate(
                 { _id: req.user.userId, "logins._id": _id },
-                { $set: { "logins.trash": false } },
+                { $set: { "logins.$.trash": false } },
                 { new: true },
             );
             if (!restorelogin) {
@@ -26,11 +26,10 @@ export const permanentlydeletelogin = async (req, res) => {
         const { _id } = req.body;
         if (_id) {
             const deletelogin = await User.findOneAndUpdate(
-                req.user.userId.ObjectId,
-                {$pull:{logins:{_id}}},
-                {new:true}
-             );
-            console.log(deletelogin)
+                { _id: req.user.userId },
+                { $pull: { logins: { _id } } },
+                { new: true }
+            );
             if (!deletelogin) {
                 return res.status(404).json({ message: "logins not found" });
             }
@@ -45,19 +44,14 @@ export const permanentlydeletelogin = async (req, res) => {
 
 export const trashlogins = async (req, res) => {
     try {
-        const login = await User.findOne(req.user.userId.ObjectId)
+        const login = await User.findOne({ _id: req.user.userId })
         if (!login) {
             return res.status(404).json({ message: "login not found" });
         }
-        const logins = []
-        for (i = 0; login.logins.length() > i; i++) {
-            if (login.logins.trash[i] === true) {
-                logins = login.logins[i]
-            }
-        }
+        const logins = login.logins.filter(item => item.trash);
         res.status(200).json({
             message: "logins fetch successfully!",
-            logins: logins,
+            deletedlogins: logins,
         });
     } catch (error) {
         res.status(500).json({ message: "error while fetch", error: error.message })

@@ -21,9 +21,9 @@ export const useAuthStore = create(persist((set) => ({
     set({ authUser: data });
   },
 
-  // settoken:()=>{
-  //   set({token:true});
-  // },
+  settoken:()=>{
+    set({token:true});
+  },
 
   logout: async () => {
     try {

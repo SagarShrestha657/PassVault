@@ -1,35 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
 import 'react-toastify/dist/ReactToastify.css';
 import Login from './pages/Login'
 import Signup from './pages/SignUp'
-import { createBrowserRouter, RouterProvider, useLocation } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, } from 'react-router-dom'
 import Home from './pages/Home'
 import Email_address from "./pages/Email_address"
 import Email_verification from './pages/Email_verification';
 import { useAuthStore } from './store/useAuthStore';
 import { Navigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import Trash from './pages/Trash';
 
 function App() {
 
-  const User = useAuthStore((state) => state.authUser)
-  const token = useAuthStore((state) => state.token)
-
+  const {authUser,token}=useAuthStore()
   
-  const { checkAuth } = useAuthStore()
-
-  // useEffect(() => {
-
-  //   checkAuth()
-
-  // }, [useLocation.pathname])
-
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <>{token && User ? <><Navbar /> <Home /></> : <Navigate to="/login" replace />} </>
+      element:<>{token && authUser ? <><Navbar /> <Home /></> : <Navigate to="/login" replace/>}</>
     },
     {
       path: "/login",
@@ -41,12 +31,16 @@ function App() {
     },
     {
       path: "/emailverification",
-      element: <>{User && !token ? <Email_verification /> : <Navigate to="/login" replace />}</>
+      element: <>{authUser && !token ? <Email_verification /> : <Navigate to="/login" replace />}</>
     },
     {
       path: "/emailaddress",
       element: <>{!token ? <Email_address /> : <Navigate to="/" replace />}</>
-    }
+    },
+    {
+      path: "/trash",
+      element: <>{token && authUser ? <><Navbar /> <Trash /></> : <Navigate to="/login" replace/>}</>
+    },
   ])
 
 

@@ -8,7 +8,7 @@ const Email_address = () => {
   const [email, setemail] = useState("")
   const [error, seterror] = useState()
   const navigate = useNavigate()
-  const {user}=useAuthStore()
+  const { user } = useAuthStore()
 
   const handlechange = (e) => {
     setemail(e.target.value)
@@ -16,12 +16,12 @@ const Email_address = () => {
 
   const save_email = async () => {
     console.log(email)
-    if(!email) seterror("Enter your Email")
+    if (!email) seterror("Enter your Email")
     try {
       if (email) {
-        const res = await axiosInstance.post("/emailaddress", {email})
-        user(res)
-        navigate("/emailverification")
+        const res = await axiosInstance.post("/emailaddress", { email })
+        await user(res)
+        navigate("/emailverification", { replace: true })
       }
     } catch (error) {
       console.log(error)
@@ -37,7 +37,7 @@ const Email_address = () => {
           <p className='mt-3 mb-4  font-normal'>Enter your email address</p>
           <div className='relative mb-1'>
             <span className='fixed -mt-3 ml-1.5 bg-white w-20 text-center text-blue-700'>Enter Email</span>
-            <input type="text" value={email} onChange={handlechange} className=' w-full h-10 pl-2 border-2 border-blue-700 outline-none'/>
+            <input type="text" value={email} onChange={handlechange} className=' w-full h-10 pl-2 border-2 border-blue-700 outline-none' />
           </div>
           {error && <p className=' text-red-600 text-xs'>{error}</p>}
           <div className='flex justify-between h-8 mt-6'>

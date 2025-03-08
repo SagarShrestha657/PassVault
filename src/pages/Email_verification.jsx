@@ -1,4 +1,4 @@
-import {  useState } from 'react'
+import { useState } from 'react'
 import React from 'react'
 import { axiosInstance } from '../lib/axios'
 import { useNavigate } from 'react-router-dom'
@@ -9,8 +9,8 @@ const Email_verification = () => {
     const [error, seterror] = useState("")
     const navigate = useNavigate()
     const User = useAuthStore((state) => state.authUser)
-    const { settoken } = useAuthStore()
-    
+    const { checkAuth } = useAuthStore()
+
     const handlechange = (e) => {
         setcode(e.target.value)
     }
@@ -19,8 +19,8 @@ const Email_verification = () => {
             try {
                 const email = User.data.email;
                 await axiosInstance.post("/emailverification", { code, email })
-                settoken()
-                navigate("/")
+                await checkAuth()
+                navigate("/,{ replace: true }")
             } catch (error) {
 
                 if (error.response.data.message) {
@@ -33,7 +33,7 @@ const Email_verification = () => {
     }
 
     const back = () => {
-        navigate("/signup")
+        navigate("/signup", { replace: true })
     }
     return (
         <>

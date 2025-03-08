@@ -1,5 +1,5 @@
 import express from "express";
-import { addlogin, logins, movetotrashlogin } from "../Controller/LoginsControlller";
+import { addlogin, logins, movetotrashlogin } from "../Controller/LoginsController.js";
 
 const loginsRouter = express.Router();
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { replace, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../lib/axios";
 import { useAuthStore } from "../store/useAuthStore";
 
@@ -18,16 +18,11 @@ const SignUp = () => {
         setsignup({ ...signup, [e.target.name]: e.target.value })
     }
 
-
-
-
-
-
     const savesignup = async () => {
         try {
             const res = await axiosInstance.post("/signup", signup)
             user(res.data)
-            navigate("/emailverification")
+            navigate("/emailverification", { replace: true })
         } catch (error) {
             if (error.response.data.message) {
                 seterror(error.response.data.message)
@@ -35,14 +30,11 @@ const SignUp = () => {
                 seterror("something went wrong. please try again .")
             }
         }
-
-
         setsignup({ username: "", email: "", password: "" })
-
     }
     return (
         <>
-            <div className="w-full h-screen flex justify-center items-center bg-[url('public/background_Image.png')] bg-cover ">
+            <div className="w-full h-screen flex justify-center items-center bg-[url('/background_Image.png')] bg-cover ">
                 <div className="w-72  h-fit sm:w-96 shadow-2xl rounded-lg">
                     <h2 className="mt-3 text-center font-bold text-2xl text-white">
                         Creative Threads
