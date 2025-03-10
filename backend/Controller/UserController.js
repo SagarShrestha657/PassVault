@@ -63,9 +63,25 @@ export const login = async (req, res) => {
     if (!isPasswordCorrect)
       return res.status(400).json({ message: "Invalid credentials" });
 
+    if (!user.isverified) {
+      console.log(user.isverified)
+      const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+      await User.findOneAndUpdate(
+        { email },
+        {  verificationCode: verificationCode  },
+      );
+      sendVerificationEmail(user.email, verificationCode);
+      return res.status(200).json({
+        emailverification: false,
+        username: user.username,
+        email: user.email,
+      });
+    }
+
     generateToken(user._id, res);
 
     res.status(200).json({
+      emailverification: true,
       username: user.username,
       email: user.email,
     });
@@ -98,10 +114,11 @@ export const emailVerification = async (req, res) => {
       return res.status(400).json({ message: "Invalid Code or Expired Code." });
     }
     if (user.verificationCode === code) {
-      user.verificationCode = undefined;
+      user.verificationCode = null;
+      user.isverified = true;
       await user.save();
       sendWelcomeEmail(user.email);
-      generateToken(User._id, res);
+      await generateToken(User._id, res);
       return res.status(200).json({ message: "User isVerified! " });
     }
 

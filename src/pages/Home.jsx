@@ -12,17 +12,17 @@ const Home = () => {
     const [logins, setlogins] = useState([])
     const [buttoncontent, setbuttoncontent] = useState(<FaEyeSlash />)
     const ref = useRef()
-    const {checkAuth}  = useAuthStore()
+    const { checkAuth } = useAuthStore()
 
     useEffect(() => {
         checkAuth()
         datas()
     }, [])
 
-    useEffect(()=>{
-        setInterval(()=>{
+    useEffect(() => {
+        setInterval(() => {
             checkAuth()
-        },1000*60*2)   
+        }, 1000 * 60 * 2)
     })
 
     const handlechange = (e) => {
@@ -63,6 +63,7 @@ const Home = () => {
     const savepassword = async () => {
         try {
             if (form.username.length > 3 && form.Website.length > 3 && form.password.length > 3) {
+                console.log(form)
                 const res = await axiosInstance.post("/logins/add", form, { withCredentials: true, })
                 setlogins([...logins, form])
                 setform({ Website: "", username: "", password: "" })
@@ -79,15 +80,14 @@ const Home = () => {
 
     const editpassword = async (_id) => {
         try {
-            const data = { _id }
-            await axiosInstance.patch("/logins/movetotrash", data, { withCredentials: true })
-            setlogins(logins.filter(item => item._id !== _id))
+            await axiosInstance.delete("/logins/deletelogin", { data: { _id } }, { withCredentials: true })
             setform(logins.filter(item => item._id === _id)[0])
+            setlogins(logins.filter(item => item._id !== _id))
         } catch (error) {
             toast(error.response.data.message)
         }
 
-    }
+    };
 
     const deletepassword = async (_id) => {
         try {
@@ -155,7 +155,7 @@ const Home = () => {
                                                 <span className='mx-1 pt-[2px]  font-semibold  cursor-pointer text-gray-500 hover:text-blue-500' onClick={() => { coptext(item.username) }}><FaCopy /></span>
                                             </th>
                                             <th className='border border-blue-400 w-[30%]  flex justify-between'>
-                                                <h3 className='font-bold pl-2 text-left overflow-auto  ' >{item.password}</h3>
+                                                <h3 className='font-bold pl-2 text-left overflow-auto  ' >{hidepassword(item.password)}</h3>
                                                 <span className='mx-1 pt-[2px]  font-semibold cursor-pointer text-gray-500 hover:text-blue-500 ' onClick={() => { coptext(item.password) }}><FaCopy /></span>
                                             </th>
                                             <th className='border border-blue-400  w-[10%]  flex gap-2'>

@@ -30,14 +30,14 @@ const Email_address = () => {
   }
   return (
     <>
-      <div className="w-full h-screen flex justify-center items-center ">
-        <div className='w-72  h-fit flex-col  my-auto sm:w-96 flex '>
+      <div className="w-full h-screen flex justify-center items-center bg-[url('/background_Image.png')]  bg-cover">
+        <div className="w-72  h-fit flex-col  my-auto sm:w-96 flex p-4  bg-white rounded-md ">
           <h2 className='mt-3 text-center font-bold text-2xl'>Creative Threads</h2>
           <h4 className='mt-3 text-center font-medium text-xl'>Find your Account</h4>
           <p className='mt-3 mb-4  font-normal'>Enter your email address</p>
           <div className='relative mb-1'>
             <span className='fixed -mt-3 ml-1.5 bg-white w-20 text-center text-blue-700'>Enter Email</span>
-            <input type="text" value={email} onChange={handlechange} className=' w-full h-10 pl-2 border-2 border-blue-700 outline-none' />
+            <input type="text" value={email} onChange={handlechange} className=' w-full h-10 pl-2 border-2 border-blue-700 outline-none  bg-white  rounded-md' />
           </div>
           {error && <p className=' text-red-600 text-xs'>{error}</p>}
           <div className='flex justify-between h-8 mt-6'>

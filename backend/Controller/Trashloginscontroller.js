@@ -6,8 +6,7 @@ export const restorelogin = async (req, res) => {
         if (_id) {
             const restorelogin = await User.findOneAndUpdate(
                 { _id: req.user.userId, "logins._id": _id },
-                { $set: { "logins.$.trash": false } },
-                { new: true },
+                { $set: { "logins.$.trash": false, "logins.$.trashAt": null } },
             );
             if (!restorelogin) {
                 return res.status(404).json({ message: "login not found" });
@@ -17,7 +16,7 @@ export const restorelogin = async (req, res) => {
             });
         }
     } catch (error) {
-        res.status(500).json({ message: "error while deleting", error: error.message })
+        res.status(500).json({ message: "error while restoring login " })
     }
 };
 
@@ -25,10 +24,9 @@ export const permanentlydeletelogin = async (req, res) => {
     try {
         const { _id } = req.body;
         if (_id) {
-            const deletelogin = await User.findOneAndUpdate(
+            const deletelogin = await User.findByIdAndUpdate(
                 { _id: req.user.userId },
                 { $pull: { logins: { _id } } },
-                { new: true }
             );
             if (!deletelogin) {
                 return res.status(404).json({ message: "logins not found" });
@@ -38,13 +36,13 @@ export const permanentlydeletelogin = async (req, res) => {
             });
         }
     } catch (error) {
-        res.status(500).json({ message: "error while deleting", error: error.message })
+        res.status(500).json({ message: "error while deleting" })
     }
 };
 
 export const trashlogins = async (req, res) => {
     try {
-        const login = await User.findOne({ _id: req.user.userId })
+        const login = await User.findById({ _id: req.user.userId })
         if (!login) {
             return res.status(404).json({ message: "login not found" });
         }
@@ -54,7 +52,7 @@ export const trashlogins = async (req, res) => {
             deletedlogins: logins,
         });
     } catch (error) {
-        res.status(500).json({ message: "error while fetch", error: error.message })
+        res.status(500).json({ message: "error while fetching" })
     }
 };
 

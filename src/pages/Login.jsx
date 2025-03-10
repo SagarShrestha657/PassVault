@@ -19,9 +19,16 @@ const Login = () => {
   const savelogin = async () => {
     try {
       let res = await axiosInstance.post("/login", login)
-      await user(res.data)
-      await checkAuth()
-      navigate("/", { replace: true })
+      const data = { username: res.data.username, email: res.data.email }
+      if (!res.data.emailverification) {
+        await user(data)
+        window.location.href = "/emailverification"
+        console.log("hi")
+      } else {
+        await user(data)
+        await checkAuth()
+        navigate("/", { replace: true })
+      }
     } catch (error) {
       if (error.response.data.message) {
         seterror(error.response.data.message)
@@ -35,7 +42,7 @@ const Login = () => {
     <>
       <div className="w-full h-screen flex justify-center items-center bg-[url('/background_Image.png')]  bg-cover">
 
-        <div className="w-72  h-fit  my-auto sm:w-96 shadow-2xl rounded-lg">
+        <div className="w-72  h-fit  my-auto sm:w-96 ">
           <h2 className="mt-3 text-center font-bold text-2xl text-white">
             Creative Threads
           </h2>

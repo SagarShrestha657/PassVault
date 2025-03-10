@@ -4,7 +4,7 @@ import Navbar from './components/Navbar'
 import 'react-toastify/dist/ReactToastify.css';
 import Login from './pages/Login'
 import Signup from './pages/SignUp'
-import { createBrowserRouter, RouterProvider, } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, useLocation, } from 'react-router-dom'
 import Home from './pages/Home'
 import Email_address from "./pages/Email_address"
 import Email_verification from './pages/Email_verification';
@@ -13,8 +13,9 @@ import { Navigate } from 'react-router-dom';
 import Trash from './pages/Trash';
 
 function App() {
-
   const {authUser,token}=useAuthStore()
+  
+  console.log(authUser,token)
   
   const router = createBrowserRouter([
     {

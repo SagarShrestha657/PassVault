@@ -20,6 +20,16 @@ const Trash = () => {
     }
   };
 
+  const hidepassword = (psd) => {
+    let len = psd.length
+    let hidden = "*"
+    for (let i = 0; i < len; i++) {
+
+        hidden = hidden + "*"
+    }
+    return hidden
+};
+
   useEffect(() => {
     checkAuth()
     datas()
@@ -93,7 +103,7 @@ const Trash = () => {
                         <span className='mx-1 pt-[2px]  font-semibold  cursor-pointer text-gray-500 hover:text-blue-500' onClick={() => { coptext(item.username) }}><FaCopy /></span>
                       </th>
                       <th className='border border-blue-400 w-[30%]  flex justify-between'>
-                        <h3 className='font-bold pl-2 text-left overflow-auto  ' >{item.password}</h3>
+                        <h3 className='font-bold pl-2 text-left overflow-auto  ' >{hidepassword(item.password)}</h3>
                         <span className='mx-1 pt-[2px]  font-semibold cursor-pointer text-gray-500 hover:text-blue-500 ' onClick={() => { coptext(item.password) }}><FaCopy /></span>
                       </th>
                       <th className='border border-blue-400  w-[10%]  flex gap-2'>

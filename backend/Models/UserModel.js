@@ -17,7 +17,7 @@ const userschema = new mongoose.Schema(
         verificationCode:{
             type:"string",
             default:null,
-            expires:600,
+            expires:60*10,
         },
         logins:[{
             Website:{
@@ -36,8 +36,15 @@ const userschema = new mongoose.Schema(
                 type:Boolean,
                 default:false,
             },
+            trashAt:{
+                type:Date,
+                default:null,   
+            },
         }],
-
+        isverified:{
+            type:Boolean,
+            default:false,
+        },
     }
 );
 
