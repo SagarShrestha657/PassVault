@@ -1,4 +1,5 @@
 import User from "../Models/UserModel.js";
+import CryptoJS from "crypto-js";
 
 export const restorelogin = async (req, res) => {
     try {
@@ -46,7 +47,23 @@ export const trashlogins = async (req, res) => {
         if (!login) {
             return res.status(404).json({ message: "login not found" });
         }
-        const logins = login.logins.filter(item => item.trash);
+        const secretKey = process.env.SECRET_KEY;
+        const today = new Date();
+        const logins = login.logins
+            .filter(item => item.trash) // Filter out trashed items
+            .map(item => {
+                const trashAt = new Date(item.trashAt);
+                const daysLeft = 30 - Math.floor((today - trashAt) / (1000 * 60 * 60 * 24));
+
+                return {
+                    ...item,
+                    _id: item._id,
+                    Website: item.Website,
+                    username: item.username,
+                    password: CryptoJS.AES.decrypt(item.password, secretKey).toString(CryptoJS.enc.Utf8), // Decrypt password
+                    daysLeft: Math.max(0, daysLeft), // Prevent negative values
+                }
+            });
         res.status(200).json({
             message: "logins fetch successfully!",
             deletedlogins: logins,

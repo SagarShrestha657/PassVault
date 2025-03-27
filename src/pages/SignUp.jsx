@@ -1,25 +1,25 @@
 import React, { useState } from "react";
-import { replace, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../lib/axios";
 import { useAuthStore } from "../store/useAuthStore";
+import { validate } from "email-validator";
 
 const SignUp = () => {
-
-
     const [signup, setsignup] = useState({ username: "", email: "", password: "", })
     const navigate = useNavigate();
-
     const [error, seterror] = useState()
     const { user } = useAuthStore()
 
-
-
     const signup_handlechange = (e) => {
         setsignup({ ...signup, [e.target.name]: e.target.value })
-    }
+    };
 
     const savesignup = async () => {
         try {
+            if (!validate(signup.email)) {
+                seterror("invalid email")
+                return;
+            }
             const res = await axiosInstance.post("/signup", signup)
             user(res.data)
             navigate("/emailverification", { replace: true })
@@ -31,19 +31,19 @@ const SignUp = () => {
             }
         }
         setsignup({ username: "", email: "", password: "" })
-    }
+    };
+    
     return (
         <>
-            <div className="w-full h-screen flex justify-center items-center bg-[url('/background_Image.png')] bg-cover ">
-                <div className="w-72  h-fit sm:w-96 shadow-2xl rounded-lg">
-                    <h2 className="mt-3 text-center font-bold text-2xl text-white">
-                        Creative Threads
+            <div className="w-full h-screen flex justify-center items-center bg-gray-100 ">
+                <div className="w-72  h-fit sm:w-96">
+                    <h2 className="mt-3 text-center font-bold text-2xl ">
+                        PassVault
                     </h2>
-                    <p className="my-2 text-center font-thin text-white">
-                        {" "}
-                        A Thread that Connect Creativity
+                    <p className="my-2 text-center font-thin ">
+                        Securely store and manage your logins with ease
                     </p>
-                    <div className="flex flex-col bg-slate-300 rounded-md  h-fit">
+                    <div className="flex flex-col bg-white rounded-lg shadow-md  h-fit">
                         <div className="flex flex-row mb-3 h-10 w-full">
                             <div
                                 className={
@@ -63,7 +63,7 @@ const SignUp = () => {
                         </div>
                         <label className="pl-4 mb-1 font-semibold">UserName</label>
                         <input
-                            className="bg-white  outline-none  rounded-md mx-4 mb-2 pl-2 "
+                            className="bg-white  outline-none  rounded-md mx-4 mb-2 pl-2 border border-b-2 "
                             type="text"
                             required
                             value={signup.username}
@@ -72,7 +72,7 @@ const SignUp = () => {
                         />
                         <label className="pl-4   mb-1 font-semibold">Email</label>
                         <input
-                            className="bg-white  outline-none  rounded-md mx-4 mb-2 pl-2 "
+                            className="bg-white  outline-none  rounded-md mx-4 mb-2 pl-2 border border-b-2"
                             type="text"
                             required
                             value={signup.email}
@@ -81,7 +81,7 @@ const SignUp = () => {
                         />
                         <label className="pl-4 mb-1 font-semibold ">Password</label>
                         <input
-                            className="bg-white  outline-none  rounded-md mx-4 mb-1 pl-2"
+                            className="bg-white  outline-none  rounded-md mx-4 mb-1 pl-2 border border-b-2"
                             type="password"
                             required
                             value={signup.password}

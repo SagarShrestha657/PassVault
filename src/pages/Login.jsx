@@ -23,7 +23,6 @@ const Login = () => {
       if (!res.data.emailverification) {
         await user(data)
         window.location.href = "/emailverification"
-        console.log("hi")
       } else {
         await user(data)
         await checkAuth()
@@ -40,17 +39,16 @@ const Login = () => {
 
   return (
     <>
-      <div className="w-full h-screen flex justify-center items-center bg-[url('/background_Image.png')]  bg-cover">
+      <div className="w-full h-screen flex justify-center items-center bg-gray-100">
 
         <div className="w-72  h-fit  my-auto sm:w-96 ">
-          <h2 className="mt-3 text-center font-bold text-2xl text-white">
-            Creative Threads
+          <h2 className="mt-3 text-center font-bold text-2xl ">
+            PassVault
           </h2>
-          <p className="my-2  text-center font-thin text-white">
-            {" "}
-            A Thread that Connect Creativity
+          <p className="my-2  text-center font-thin ">
+            Securely store and manage your logins with ease
           </p>
-          <div className="flex flex-col bg-slate-300 rounded-md h-fit  ">
+          <div className="flex flex-col bg-white rounded-lg shadow-md h-fit  ">
             <div className="flex flex-row mb-3  h-10 w-full">
               <div
                 className={
@@ -70,7 +68,7 @@ const Login = () => {
             </div>
             <label className="pl-4 mb-1 font-semibold">Email</label>
             <input
-              className="bg-white  outline-none  rounded-md mx-4 mb-2 pl-2 "
+              className="bg-white  outline-none  rounded-md mx-4 mb-2 pl-2 border border-b-2 "
               type="text"
               required
               value={login.email}
@@ -79,7 +77,7 @@ const Login = () => {
             />
             <label className="pl-4 mb-1 font-semibold ">Password</label>
             <input
-              className="bg-white   outline-none rounded-md mx-4 mb-2 pl-2"
+              className="bg-white   outline-none rounded-md mx-4 mb-2 pl-2 border border-b-2"
               type="password"
               required
               value={login.password}
@@ -93,7 +91,7 @@ const Login = () => {
                     {error}
                   </div>}
               </div>
-              <div className="pr-4 text-xs cursor-pointer" onClick={() => navigate("/emailaddress")}>Forget Password</div>
+              <div className="pr-4 text-xs cursor-pointer text-blue-600" onClick={() => navigate("/emailaddress")}>Forget Password</div>
             </div>
             <button
               className="bg-black mx-4 rounded-md text-white h-8 mb-4  cursor-pointer  "

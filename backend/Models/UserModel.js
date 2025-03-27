@@ -14,36 +14,58 @@ const userschema = new mongoose.Schema(
             type: "string",
             required: true,
         },
-        verificationCode:{
-            type:"string",
-            default:null,
-            expires:60*10,
+        verificationCode: {
+            type: "string",
+            default: null,
+            expires: 60 * 10,
         },
-        logins:[{
-            Website:{
-                type:"string",
-                required:true,
+        logins: [{
+            Website: {
+                type: "string",
+                required: true,
             },
-            username:{
-                type:"string",
-                required:true,
+            username: {
+                type: "string",
+                required: true,
             },
-            password:{
-                type:"string",
-                required:true,
+            password: {
+                type: "string",
+                required: true,
             },
-            trash:{
-                type:Boolean,
-                default:false,
+            trash: {
+                type: Boolean,
+                default: false,
             },
-            trashAt:{
-                type:Date,
-                default:null,   
+            trashAt: {
+                type: Date,
+                default: null,
             },
         }],
-        isverified:{
-            type:Boolean,
-            default:false,
+        isverified: {
+            type: Boolean,
+            default: false,
+        },
+        device_info: {
+            ip: {
+                type: "string",
+                default: null,
+            },
+            browser: {
+                type: "string",
+                default: null,
+            },
+            os: {
+                type: "string",
+                default: null,
+            },
+            device: {
+                type: "string",
+                default: null,
+            },
+            location: {
+                type: "string",
+                default: null,
+            },
         },
     }
 );
