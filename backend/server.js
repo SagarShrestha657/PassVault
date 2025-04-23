@@ -44,7 +44,7 @@ app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(cookieParser());
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://pass-vault-black.vercel.app/',
+  'https://pass-vault-black.vercel.app',
 ];
 
 app.use(cors({
@@ -57,6 +57,12 @@ app.use(cors({
   },
   credentials: true,
 }));
+
+app.options('*', cors({
+  origin: allowedOrigins,
+  credentials: true,
+}));
+
 
 
 // Creating All API's
