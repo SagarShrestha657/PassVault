@@ -21,6 +21,10 @@ export const useAuthStore = create(persist((set) => ({
     set({ authUser: data });
   },
 
+  settoken:()=>{
+    set({token:true})
+  },
+
   logout: async () => {
     try {
       await axiosInstance.post("/logout", { withCredentials: true, })

@@ -9,7 +9,7 @@ const Email_verification = () => {
     const [error, seterror] = useState("")
     const navigate = useNavigate()
     const User = useAuthStore((state) => state.authUser)
-    const { checkAuth } = useAuthStore()
+    const { checkAuth,settoken } = useAuthStore()
 
     const handlechange = (e) => {
         setcode(e.target.value)
@@ -19,7 +19,7 @@ const Email_verification = () => {
             try {
                 const email = User.email;
                 await axiosInstance.post("/emailverification", { code, email })
-                await checkAuth()
+                settoken()
                 navigate("/",{ replace: true })
             } catch (error) {
                 console.log(error)
