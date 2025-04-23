@@ -42,10 +42,22 @@ cron.schedule("0 0 * * *", async () => {
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(cookieParser());
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://pass-vault-black.vercel.app/',
+];
+
 app.use(cors({
-  origin: "http://localhost:5173 ",
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
-}))
+}));
+
 
 // Creating All API's
 app.use("/", UserRouter);
