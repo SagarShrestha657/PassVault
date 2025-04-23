@@ -25,7 +25,6 @@ const Login = () => {
         window.location.href = "/emailverification"
       } else {
         await user(data)
-        await checkAuth()
         navigate("/", { replace: true })
       }
     } catch (error) {
