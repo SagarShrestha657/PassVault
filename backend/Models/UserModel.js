@@ -67,6 +67,14 @@ const userschema = new mongoose.Schema(
                 default: null,
             },
         },
+        url: [{
+            originalUrl: {
+                type: "string",
+            },
+            shortUrl: {
+                type: "string",
+            },
+        }]
     }
 );
 

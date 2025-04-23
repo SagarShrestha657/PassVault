@@ -11,8 +11,8 @@ import {
   changepassword,
   sendOtp,
 } from "../Controller/UserController.js";
-import { protectedRoute } from "../Middleware/ProtectedRoute.js";
-import { trackUserActivity } from "../Middleware/TrackUserRoute.js";
+import { protectedRoute } from "../Middleware/AuthMiddleware.js";
+import { trackUserActivity } from "../Middleware/TrackUserMiddleware.js";
 
 const UserRouter = express.Router();
 
@@ -30,10 +30,12 @@ UserRouter.get("/checkauth", protectedRoute, checkauth);
 
 UserRouter.post("/resetpassword", protectedRoute, trackUserActivity, resetpassword);
 
-UserRouter.post("/sendotp", protectedRoute,sendOtp);
+UserRouter.post("/sendotp", protectedRoute, sendOtp);
 
-UserRouter.post("/checkotp", protectedRoute,checkOtp);
+UserRouter.post("/checkotp", protectedRoute, checkOtp);
 
 UserRouter.post("/changepassword", protectedRoute, trackUserActivity, changepassword);
+
+
 
 export default UserRouter;

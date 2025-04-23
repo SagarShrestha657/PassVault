@@ -102,13 +102,10 @@ const Home = () => {
 
     const deletepassword = async (_id) => {
         try {
-            let d = confirm("do yo want to delete this Login")
-            if (d) {
-                const data = { _id }
-                const res = await axiosInstance.patch("/logins/movetotrash", data, { withCredentials: true })
-                setlogins(logins.filter(item => item._id !== _id))
-                toast.success(res.data.message);
-            }
+            const data = { _id }
+            const res = await axiosInstance.patch("/logins/movetotrash", data, { withCredentials: true })
+            setlogins(logins.filter(item => item._id !== _id))
+            toast.success(res.data.message);
         } catch (error) {
             toast.error(error.response.data.message)
         }

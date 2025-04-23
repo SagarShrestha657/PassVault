@@ -124,7 +124,6 @@ export const emailVerification = async (req, res) => {
       user.isverified = true;
       user.device_info = req.userActivity
       await user.save();
-
       generateToken(user._id, res);
       sendWelcomeEmail(user.email);
       return res.status(200).json({ message: "User isVerified! " });
@@ -165,7 +164,7 @@ export const emailAddressCheck = async (req, res) => {
 export const checkauth = (req, res) => {
   try {
     if (req.user.userId) return res.status(200).json({ message: "token is provided" })
-    res.status(401).json({ meaasge: "token not provided" })
+    res.status(401).json({ message: "token not provided" })
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
@@ -243,7 +242,7 @@ export const checkOtp = async (req, res) => {
 
 export const changepassword = async (req, res) => {
   try {
-    const {newPassword }= req.body;
+    const { newPassword } = req.body;
     const user = await User.findById(req.user.userId);
 
     if (!user) return res.status(404).json({ message: "user not found" })
@@ -260,3 +259,4 @@ export const changepassword = async (req, res) => {
     res.status(500).json({ message: "internal server error" })
   }
 };
+

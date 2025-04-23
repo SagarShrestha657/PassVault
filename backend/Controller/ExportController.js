@@ -21,7 +21,7 @@ export const csv = async (req, res) => {
             fs.mkdirSync(downloadsDir, { recursive: true });
         }
 
-        // ✅ Decrypt passwords
+        //  Decrypt passwords
         const secretKey = process.env.SECRET_KEY;
         const logins = user.logins.map(item => ({
             Website: item.Website,
@@ -29,11 +29,11 @@ export const csv = async (req, res) => {
             password: CryptoJS.AES.decrypt(item.password, secretKey).toString(CryptoJS.enc.Utf8), // Decrypt password
         }));
 
-        // ✅ Define file path
+        //  Define file path
         const fileName = `logins_${Date.now()}.csv`;
         const filePath = path.join(downloadsDir, fileName);
 
-        // ✅ Create write stream
+        //  Create write stream
         const ws = fs.createWriteStream(filePath);
         fastCsv
             .write(logins, { headers: true })
@@ -41,14 +41,14 @@ export const csv = async (req, res) => {
             .on("finish", () => {
                 console.log("CSV file created:", filePath);
 
-                // ✅ Send file to client
+                //  Send file to client
                 res.download(filePath, fileName, (err) => {
                     if (err) {
                         console.error("Error downloading CSV:", err);
                         return res.status(500).json({ message: "Error downloading file" });
                     }
 
-                    // ✅ Delete file after download
+                    //  Delete file after download
                     fs.unlink(filePath, (unlinkErr) => {
                         if (unlinkErr) console.error("Error deleting file:", unlinkErr);
                     });
@@ -86,19 +86,19 @@ export const json = async (req, res) => {
                 fs.mkdirSync(downloadsDir, { recursive: true });
             }
 
-            // ✅ Save logins as JSON
+            //  Save logins as JSON
             const fileName = `logins_${Date.now()}.json`;
             const filePath = path.join(downloadsDir, fileName);
             fs.writeFileSync(filePath, JSON.stringify(logins, null, 2));
 
-            // ✅ Send file to client
+            //  Send file to client
             res.download(filePath, fileName, (err) => {
                 if (err) {
                     console.error("Download error:", err);
                     return res.status(500).json({ message: "Error downloading file" });
                 }
 
-                // ✅ Delete file after download
+                //  Delete file after download
                 fs.unlink(filePath, (unlinkErr) => {
                     if (unlinkErr) console.error("Error deleting file:", unlinkErr);
                 });
@@ -124,13 +124,13 @@ export const pdf = async (req, res) => {
         password: CryptoJS.AES.decrypt(item.password, secretKey).toString(CryptoJS.enc.Utf8), // Decrypt password
       }));
   
-      // ✅ Ensure "downloads" directory exists
+      //  Ensure "downloads" directory exists
       const downloadsDir = path.join(process.cwd(), "downloads");
       if (!fs.existsSync(downloadsDir)) {
         fs.mkdirSync(downloadsDir, { recursive: true });
       }
   
-      // ✅ Generate PDF
+      //  Generate PDF
       const fileName = `logins_${Date.now()}.pdf`;
       const filePath = path.join(downloadsDir, fileName);
       const doc = new PDFDocument();
@@ -139,7 +139,7 @@ export const pdf = async (req, res) => {
   
       doc.fontSize(16).text("User Saved Logins", { align: "center" }).moveDown(2);
   
-      logins.forEach((login, index) => {
+      logins.forEach((login) => {
         doc.fontSize(12).text(`Website: ${login.Website}`);
         doc.text(`Username: ${login.username}`);
         doc.text(`Password: ${login.password}`);

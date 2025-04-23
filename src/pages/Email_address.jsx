@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { axiosInstance } from '../lib/axios'
 import { useAuthStore } from '../store/useAuthStore'
+import { validate } from "email-validator"
 
 const Email_address = () => {
   const [email, setemail] = useState("")
@@ -16,7 +17,14 @@ const Email_address = () => {
 
   const save_email = async () => {
     console.log(email)
-    if (!email) seterror("Enter your Email")
+    if (!email) {
+      seterror("Enter your Email")
+      return;
+    }
+    if (!validate(email)) {
+      seterror("invalid email")
+      return;
+    }
     try {
       if (email) {
         const res = await axiosInstance.post("/emailaddress", { email })

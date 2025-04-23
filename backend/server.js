@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import loginsRouter from "./Routes/LoginsRoute.js";
 import UserRouter from "./Routes/UserRoute.js";
 import trashloginsRouter from "./Routes/TrashloginsRoute.js";
-import { protectedRoute } from "./Middleware/ProtectedRoute.js";
+import { protectedRoute } from "./Middleware/AuthMiddleware.js";
 import cors from 'cors';
 import cron from "node-cron";
 import User from "./Models/UserModel.js";
@@ -52,6 +52,8 @@ app.use("/", UserRouter);
 app.use("/logins", protectedRoute, loginsRouter);
 app.use("/trashlogins", protectedRoute, trashloginsRouter)
 app.use("/export",protectedRoute,exportrouter)
+
+
 
 
 app.listen(PORT, () => {

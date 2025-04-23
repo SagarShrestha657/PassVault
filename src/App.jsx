@@ -13,6 +13,7 @@ import { Navigate } from 'react-router-dom';
 import Trash from './pages/Trash';
 import PasswordReset from './pages/PasswordReset';
 import ChangePassword from './pages/ChangePassword';
+import Url from './pages/Url'
 
 function App() {
   const { authUser, token } = useAuthStore()
@@ -34,7 +35,7 @@ function App() {
     },
     {
       path: "/emailverification",
-      element: <>{authUser && !token ? <Email_verification /> : <Navigate to="/login" replace />}</>
+      element: <>{authUser && !token ? <Email_verification /> : <Navigate to="/" replace />}</>
     },
     {
       path: "/emailaddress",
@@ -52,6 +53,10 @@ function App() {
       path: "/changepassword",
       element: <>{token && authUser ? <><Navbar /> <ChangePassword /></> : <Navigate to="/login" replace />}</>
     },
+    {
+      path:"/url",
+      element:<>{token && authUser ? <><Url /></> : <Navigate to="/login" replace />}</>
+    }
   ])
 
   return (

@@ -36,17 +36,17 @@ const Navbar = () => {
   const downloadFile = async (type) => {
     try {
       const response = await axiosInstance.get(`/export/${type}`, {
-        responseType: "blob", // ✅ Get response as a Blob
-        withCredentials: true, // ✅ Include cookies for authentication
+        responseType: "blob", // Get response as a Blob
+        withCredentials: true, // Include cookies for authentication
       });
 
-      // ✅ Extract filename from Content-Disposition header
+      // Extract filename from Content-Disposition header
       const contentDisposition = response.headers["content-disposition"];
       const fileName = contentDisposition
         ? contentDisposition.split("filename=")[1].replace(/"/g, "") // Remove quotes
         : `logins.${type}`; // Fallback file name
 
-      // ✅ Determine MIME type based on file type
+      // Determine MIME type based on file type
       const mimeType =
         type === "csv"
           ? "text/csv"
@@ -55,11 +55,11 @@ const Navbar = () => {
             : "application/json"; // Default to JSON
 
 
-      // ✅ Create a Blob with the correct MIME type
+      // Create a Blob with the correct MIME type
       const blob = new Blob([response.data], { type: mimeType });
       const blobUrl = window.URL.createObjectURL(blob);
 
-      // ✅ Create and trigger a download link
+      // Create and trigger a download link
       const a = document.createElement("a");
       a.href = blobUrl;
       a.download = fileName;
@@ -67,7 +67,7 @@ const Navbar = () => {
       a.click();
       document.body.removeChild(a);
 
-      // ✅ Cleanup
+      // Cleanup
       window.URL.revokeObjectURL(blobUrl);
     } catch (error) {
       console.error("Download error:", error);
