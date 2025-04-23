@@ -17,6 +17,8 @@ import ChangePassword from './pages/ChangePassword';
 function App() {
   const { authUser, token } = useAuthStore()
 
+  console.log(authUser, token)
+
   const router = createBrowserRouter([
     {
       path: "/",

@@ -86,6 +86,7 @@ export const login = async (req, res) => {
     }
 
     generateToken(user._id, res);
+    console.log("token generated")
 
     res.status(200).json({
       emailverification: true,
@@ -125,6 +126,7 @@ export const emailVerification = async (req, res) => {
       user.device_info = req.userActivity
       await user.save();
       generateToken(user._id, res);
+      console.log("token generated")
       sendWelcomeEmail(user.email);
       return res.status(200).json({ message: "User isVerified! " });
     } else {
