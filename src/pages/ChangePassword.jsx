@@ -53,7 +53,6 @@ const ChangePassword = () => {
                 await axiosInstance.post("/checkotp", { code, email }, { withCredentials: true })
                 setchangecontent(true)
             } catch (error) {
-                console.log(error)
                 if (error.response.data.message) {
                     seterror(error.response.data.message)
                 } else {

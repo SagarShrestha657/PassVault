@@ -30,12 +30,6 @@ const Home = () => {
         datas()
     }, [])
 
-    useEffect(() => {
-        setInterval(() => {
-            checkAuth()
-        }, 1000 * 60 * 2)
-    })
-
     const handlechange = (e) => {
         setform({ ...form, [e.target.name]: e.target.value })
     }
@@ -74,7 +68,6 @@ const Home = () => {
     const savepassword = async () => {
         try {
             if (form.username.length > 3 && form.Website.length > 1 && form.password.length > 3) {
-                console.log(form)
                 const res = await axiosInstance.post("/logins/add", form, { withCredentials: true, })
                 setlogins([...logins, form])
                 setform({ Website: "", username: "", password: "" })

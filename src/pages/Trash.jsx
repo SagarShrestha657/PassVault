@@ -46,13 +46,6 @@ const Trash = () => {
     datas()
   }, []);
 
-  useEffect(() => {
-    setInterval(() => {
-      checkAuth()
-    }, 1000 * 60 * 2)
-  });
-
-
   const permanentlydelete = async (_id) => {
     try {
       let d = confirm("do yo want to permanently delete this Login")

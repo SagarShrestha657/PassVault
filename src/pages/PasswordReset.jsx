@@ -46,7 +46,6 @@ const PasswordReset = () => {
             navigate("/changepassword", { replace: true })
 
         } catch (error) {
-            console.log(error)
             setError(error.response.data.message)
         }
     };

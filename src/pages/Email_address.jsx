@@ -16,7 +16,6 @@ const Email_address = () => {
   }
 
   const save_email = async () => {
-    console.log(email)
     if (!email) {
       seterror("Enter your Email")
       return;
@@ -32,7 +31,6 @@ const Email_address = () => {
         navigate("/emailverification", { replace: true })
       }
     } catch (error) {
-      console.log(error)
       seterror(error.response.data.message)
     }
   }

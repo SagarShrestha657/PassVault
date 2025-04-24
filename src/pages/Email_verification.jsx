@@ -22,7 +22,6 @@ const Email_verification = () => {
                 await checkAuth()
                 navigate("/",{ replace: true })
             } catch (error) {
-                console.log(error)
                 if (error.response.data.message) {
                     seterror(error.response.data.message)
                 } else {

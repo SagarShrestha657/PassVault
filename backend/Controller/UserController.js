@@ -103,7 +103,7 @@ export const logout = (req, res) => {
   try {
     res.clearCookie('jwt', {
       httpOnly: true,
-      sameSite: 'strict',
+      sameSite: 'None',
       secure: process.env.NODE_ENV !== 'Development'
     })
     res.status(200).json({ message: "Logged Out" });
@@ -126,7 +126,6 @@ export const emailVerification = async (req, res) => {
       user.device_info = req.userActivity
       await user.save();
       generateToken(user._id, res);
-      console.log("token generated",res.cookie.jwt)
       sendWelcomeEmail(user.email);
       return res.status(200).json({ message: "User isVerified! " });
     } else {
