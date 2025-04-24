@@ -10,7 +10,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [error, seterror] = useState()
 
-  const { user, checkAuth ,settoken} = useAuthStore()
+  const { user, checkAuth } = useAuthStore()
 
   const login_handlechange = (e) => {
     setlogin({ ...login, [e.target.name]: e.target.value })
@@ -25,7 +25,7 @@ const Login = () => {
         window.location.href = "/emailverification"
       } else {
         await user(data)
-        settoken()
+        await checkAuth()
         navigate("/", { replace: true })
       }
     } catch (error) {
