@@ -25,7 +25,7 @@
     "mongoose": "^8.10.1",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.10.0",
-    "nodemon": "^3.1.9",
+    "nodemon": "^3.1.10",
     "pdfkit": "^0.16.0",
     "random-words": "^2.0.1"
   }

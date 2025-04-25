@@ -75,25 +75,27 @@ const Navbar = () => {
   };
 
   return (
-    <nav className='flex justify-between bg-gray-100 text-gray-600'>
-      <div className='ml-2 pt-1 flex' >
+    <nav className="flex flex-wrap justify-between items-center bg-gray-100 text-gray-600 px-2 py-2">
+      <div className="flex items-center space-x-2">
         <img src="/logo.png" alt="PassVault Logo" className="h-8 rounded-full" />
-        <span className='ml-2 text-xl font-semibold text-gray-700 '>PassVault</span>
+        <span className="text-base sm:text-xl font-semibold text-gray-700">PassVault</span>
       </div>
-      <div className='flex gap-5 list-none'>
-        <li className=" hover:text-blue-500" >
-          <Link to="/resetpassword" >Reset Password</Link>
+
+      <ul className="flex flex-wrap items-center gap-2 sm:gap-5 list-none text-sm sm:text-base">
+        <li className="hover:text-blue-500">
+          <Link to="/resetpassword">Reset Password</Link>
         </li>
-        <li className="  hover:text-blue-500">
-          {pageref.current ? <Link to="/trash" onClick={Trashpage}>Trash</Link> :
-            <Link to="/" onClick={Trashpage}>Home</Link>}
+        <li className="hover:text-blue-500">
+          {pageref.current ? (
+            <Link to="/trash" onClick={Trashpage}>Trash</Link>
+          ) : (
+            <Link to="/" onClick={Trashpage}>Home</Link>
+          )}
         </li>
-        {/* <li className='text-black hover:font-medium hover:text-gray-500 cursor-pointer'> */}
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <li className='  hover:text-blue-500 cursor-pointer'>
-              Export
-            </li>
+            <li className="hover:text-blue-500 cursor-pointer">Export</li>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="center">
             <DropdownMenuItem onClick={() => downloadFile("pdf")}>Export as PDF</DropdownMenuItem>
@@ -101,33 +103,29 @@ const Navbar = () => {
             <DropdownMenuItem onClick={() => downloadFile("csv")}>Export as CSV</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Dialog >
+
+        <Dialog>
           <DialogTrigger asChild>
-            <li className='mr-5  cursor-pointer hover:text-blue-500 '>
-              Logout
-            </li>
+            <li className="cursor-pointer hover:text-blue-500">Logout</li>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle className="text-center ">Logout PassVault</DialogTitle>
+              <DialogTitle className="text-center">Logout PassVault</DialogTitle>
               <DialogDescription className="text-center p-5">Do you want to Logout?</DialogDescription>
             </DialogHeader>
             <DialogFooter className="sm:justify-start">
               <DialogClose asChild>
                 <div className="flex justify-between w-full">
-                  <Button type="button" variant="secondary">
-                    Cancel
-                  </Button>
-                  <Button type="button" variant="secondary" onClick={Logout}>
-                    Yes
-                  </Button>
+                  <Button type="button" variant="secondary">Cancel</Button>
+                  <Button type="button" variant="secondary" onClick={Logout}>Yes</Button>
                 </div>
               </DialogClose>
             </DialogFooter>
           </DialogContent>
         </Dialog>
-      </div>
-    </nav >
+      </ul>
+    </nav>
+
   )
 }
 

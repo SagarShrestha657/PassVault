@@ -92,88 +92,81 @@ const Trash = () => {
           <h1 className='text-center text-2xl my-3 font-semibold text-gray-800 pt-2'>Deleted Logins</h1>
           {logins.length === 0 && <div className='pl-5 m-4' >No Logins to Show</div>}
           {logins.length != 0 &&
-            <div className='w-full h-96  overflow-auto scrollbar-hide'>
-              <table className='w-full table-fixed  border border-gray-300 shadow-md rounded-md '>
-                <thead >
-                  <tr className='flex w-full bg-blue-500 text-white '>
-                    <th className=' w-[9%]'>DaysLeft</th>
-                    <th className=' w-[27%]'>Website</th>
-                    <th className=' w-[27%]'>Username</th>
-                    <th className=' w-[27%]'>Password</th>
-                    <th className=' w-[10%]'>Action</th>
+            <div className='w-full h-96 overflow-auto scrollbar-hide'>
+              <table className='w-full table-fixed border border-gray-300 shadow-md rounded-md text-sm max-sm:text-xs'>
+                <thead>
+                  <tr className='flex w-full bg-blue-500 text-white'>
+                    <th className='w-[9%] p-1 '>DaysLeft</th>
+                    <th className='w-[27%] p-1'>Website</th>
+                    <th className='w-[27%] p-1'>Username</th>
+                    <th className='w-[27%] p-1'>Password</th>
+                    <th className='w-[10%] p-1'>Action</th>
                   </tr>
                 </thead>
-                <tbody >
-                  {logins.map((item, index) => {
-                    return <tr key={index} className='odd:bg-gray-100 even:bg-white  flex w-full'>
-                      <th className='border border-blue-400 w-[9%]  flex justify-between'>
-                        <h3 className={`items-center ${getColor(item.daysLeft)} font-bold w-full`}>{item.daysLeft} Days</h3>
-                      </th>
-                      <th className='border border-blue-400 w-[27%]  flex justify-between'>
-                        <h3 className=' overflow-auto  pl-2 ' >  <a href="item.site">{item.Website}</a></h3>
-                        <span className='mx-1  pt-[2px] font-semibold cursor-pointer text-gray-500 hover:text-blue-500 ' onClick={() => { coptext(item.site) }}><FaCopy /></span>
-                      </th>
-                      <th className='border border-blue-400 w-[27%]  flex justify-between'>
-                        <h3 className='font-bold pl-2 text-left overflow-auto  ' >{item.username}</h3>
-                        <span className='mx-1 pt-[2px]  font-semibold  cursor-pointer text-gray-500 hover:text-blue-500' onClick={() => { coptext(item.username) }}><FaCopy /></span>
-                      </th>
-                      <th className='border border-blue-400 w-[27%]  flex justify-between'>
-                        <h3 className='font-bold pl-2 text-left overflow-auto  ' >{hidepassword(item.password)}</h3>
-                        <span className='mx-1 pt-[2px]  font-semibold cursor-pointer text-gray-500 hover:text-blue-500 ' onClick={() => { coptext(item.password) }}><FaCopy /></span>
-                      </th>
-                      <th className='border border-blue-400  w-[10%]  flex gap-2'>
-                        <Dialog >
+                <tbody>
+                  {logins.map((item, index) => (
+                    <tr key={index} className='odd:bg-gray-100 even:bg-white flex w-full'>
+                      <td className='border border-blue-400 w-[9%] flex items-center justify-center font-bold'>
+                        <span className={`${getColor(item.daysLeft)}`}>{item.daysLeft} Days</span>
+                      </td>
+                      <td className='border border-blue-400 w-[27%] flex justify-between items-center px-1'>
+                        <a href={item.site} className='overflow-auto'>{item.Website}</a>
+                        <span className='cursor-pointer text-gray-500 hover:text-blue-500' onClick={() => coptext(item.site)}><FaCopy /></span>
+                      </td>
+                      <td className='border border-blue-400 w-[27%] flex justify-between items-center px-1'>
+                        <span className='overflow-auto '>{item.username}</span>
+                        <span className='cursor-pointer text-gray-500 hover:text-blue-500' onClick={() => coptext(item.username)}><FaCopy /></span>
+                      </td>
+                      <td className='border border-blue-400 w-[27%] flex justify-between items-center px-1'>
+                        <span className='overflow-auto font-bold'>{hidepassword(item.password)}</span>
+                        <span className='cursor-pointer text-gray-500 hover:text-blue-500' onClick={() => coptext(item.password)}><FaCopy /></span>
+                      </td>
+                      <td className='border border-blue-400 w-[10%] flex gap-2 items-center justify-center'>
+                        <Dialog>
                           <DialogTrigger asChild>
-                            <span className='m-auto cursor-pointer hover:text-green-700 text-green-500' ><FaTrashRestoreAlt /></span>
+                            <span className='cursor-pointer text-green-500 hover:text-green-700'><FaTrashRestoreAlt /></span>
                           </DialogTrigger>
                           <DialogContent>
                             <DialogHeader>
-                              <DialogTitle className="text-center ">Restore Login</DialogTitle>
+                              <DialogTitle className="text-center">Restore Login</DialogTitle>
                               <DialogDescription className="text-center p-5">Do you want to restore this login?</DialogDescription>
                             </DialogHeader>
                             <DialogFooter className="sm:justify-start">
                               <DialogClose asChild>
                                 <div className="flex justify-between w-full">
-                                  <Button type="button" variant="secondary">
-                                    Cancel
-                                  </Button>
-                                  <Button type="button" variant="secondary" onClick={() => { restorelogin(item._id) }}>
-                                    Yes
-                                  </Button>
+                                  <Button type="button" variant="secondary">Cancel</Button>
+                                  <Button type="button" variant="secondary" onClick={() => restorelogin(item._id)}>Yes</Button>
                                 </div>
                               </DialogClose>
                             </DialogFooter>
                           </DialogContent>
                         </Dialog>
-                        <Dialog >
+                        <Dialog>
                           <DialogTrigger asChild>
-                            <span className='m-auto cursor-pointer text-red-500 hover:text-red-700' ><MdDelete /></span>
+                            <span className='cursor-pointer text-red-500 hover:text-red-700'><MdDelete /></span>
                           </DialogTrigger>
                           <DialogContent>
                             <DialogHeader>
-                              <DialogTitle className="text-center ">Delete Login</DialogTitle>
+                              <DialogTitle className="text-center">Delete Login</DialogTitle>
                               <DialogDescription className="text-center p-5">Do you want to delete this login?</DialogDescription>
                             </DialogHeader>
                             <DialogFooter className="sm:justify-start">
                               <DialogClose asChild>
                                 <div className="flex justify-between w-full">
-                                  <Button type="button" variant="secondary">
-                                    Cancel
-                                  </Button>
-                                  <Button type="button" variant="secondary" onClick={() => { permanentlydelete(item._id) }}>
-                                    Yes
-                                  </Button>
+                                  <Button type="button" variant="secondary">Cancel</Button>
+                                  <Button type="button" variant="secondary" onClick={() => permanentlydelete(item._id)}>Yes</Button>
                                 </div>
                               </DialogClose>
                             </DialogFooter>
                           </DialogContent>
                         </Dialog>
-                      </th>
+                      </td>
                     </tr>
-                  })}
+                  ))}
                 </tbody>
               </table>
-            </div>}
+            </div>
+          }
         </div>
       </div>
       <ToastContainer />
