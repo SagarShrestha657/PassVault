@@ -15,6 +15,9 @@ import {
   DialogFooter,
   DialogHeader,
 } from '../components/ui/dialog';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+
 
 const Navbar = () => {
 
@@ -23,7 +26,9 @@ const Navbar = () => {
   const navigate = useNavigate()
 
   const Logout = async () => {
+    NProgress.start()
     await logout()
+    NProgress.done()
     navigate("/login")
 
   };
@@ -35,6 +40,7 @@ const Navbar = () => {
 
   const downloadFile = async (type) => {
     try {
+      NProgress.start()
       const response = await axiosInstance.get(`/export/${type}`, {
         responseType: "blob", // Get response as a Blob
         withCredentials: true, // Include cookies for authentication
@@ -71,6 +77,9 @@ const Navbar = () => {
       window.URL.revokeObjectURL(blobUrl);
     } catch (error) {
       console.error("Download error:", error);
+    }
+    finally {
+      NProgress.done()
     }
   };
 
