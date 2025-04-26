@@ -17,6 +17,9 @@ import {
   DialogFooter,
   DialogHeader,
 } from '../components/ui/dialog';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+
 
 const Trash = () => {
   const [logins, setlogins] = useState([])
@@ -42,34 +45,39 @@ const Trash = () => {
   };
 
   useEffect(() => {
+    NProgress.start()
     checkAuth()
     datas()
+    NProgress.done()
   }, []);
 
   const permanentlydelete = async (_id) => {
     try {
-      let d = confirm("do yo want to permanently delete this Login")
-      if (d) {
-        const res = await axiosInstance.delete("/trashlogins/deletelogin", { data: { _id } }, { withCredentials: true })
-        setlogins(logins.filter(item => item._id !== _id))
-        toast.success(res.data.message);
-      }
+      NProgress.start()
+      const res = await axiosInstance.delete("/trashlogins/deletelogin", { data: { _id } }, { withCredentials: true })
+      setlogins(logins.filter(item => item._id !== _id))
+      toast.success(res.data.message);
     } catch (error) {
       toast.error(error.response.data.message)
+    }
+    finally {
+      NProgress.done()
     }
   };
 
   const restorelogin = async (_id) => {
     try {
-      let d = confirm("do yo want to restore this Login")
-      if (d) {
-        const data = { _id }
-        const res = await axiosInstance.patch("/trashlogins/restore", data, { withCredentials: true })
-        setlogins(logins.filter(item => item._id !== _id))
-        toast.success(res.data.message);
-      }
+      NProgress.start()
+      const data = { _id }
+      const res = await axiosInstance.patch("/trashlogins/restore", data, { withCredentials: true })
+      setlogins(logins.filter(item => item._id !== _id))
+      toast.success(res.data.message);
     } catch (error) {
       toast.error(error.response.data.message)
+    }
+    finally {
+      NProgress.done()
+
     }
   };
 

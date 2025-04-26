@@ -17,6 +17,8 @@ import {
     DialogFooter,
     DialogHeader,
 } from '../components/ui/dialog';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
 const Home = () => {
     const [form, setform] = useState({ Website: "", username: "", password: "", })
@@ -26,8 +28,10 @@ const Home = () => {
     const { checkAuth } = useAuthStore()
 
     useEffect(() => {
+        NProgress.start()
         checkAuth()
         datas()
+        NProgress.done()
     }, [])
 
     const handlechange = (e) => {
@@ -67,6 +71,7 @@ const Home = () => {
 
     const savepassword = async () => {
         try {
+            NProgress.start()
             if (form.username.length > 3 && form.Website.length > 1 && form.password.length > 3) {
                 const res = await axiosInstance.post("/logins/add", form, { withCredentials: true, })
                 setlogins([...logins, form])
@@ -78,6 +83,9 @@ const Home = () => {
             }
         } catch (error) {
             toast.error(error.response.data.message)
+        }
+        finally {
+            NProgress.done()
         }
     }
 
@@ -95,12 +103,16 @@ const Home = () => {
 
     const deletepassword = async (_id) => {
         try {
+            NProgress.start()
             const data = { _id }
             const res = await axiosInstance.patch("/logins/movetotrash", data, { withCredentials: true })
             setlogins(logins.filter(item => item._id !== _id))
             toast.success(res.data.message);
         } catch (error) {
             toast.error(error.response.data.message)
+        }
+        finally {
+            NProgress.done()
         }
     }
 

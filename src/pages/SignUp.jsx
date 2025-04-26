@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../lib/axios";
 import { useAuthStore } from "../store/useAuthStore";
 import { validate } from "email-validator";
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+
 
 const SignUp = () => {
     const [signup, setsignup] = useState({ username: "", email: "", password: "", })
@@ -20,8 +23,10 @@ const SignUp = () => {
                 seterror("invalid email")
                 return;
             }
+            NProgress.start()
             const res = await axiosInstance.post("/signup", signup)
             user(res.data)
+            NProgress.done()
             navigate("/emailverification", { replace: true })
         } catch (error) {
             if (error.response.data.message) {
@@ -30,9 +35,12 @@ const SignUp = () => {
                 seterror("something went wrong. please try again .")
             }
         }
-        setsignup({ username: "", email: "", password: "" })
+        finally {
+            setsignup({ username: "", email: "", password: "" })
+            NProgress.done()
+        }
     };
-    
+
     return (
         <>
             <div className="w-full h-screen flex justify-center items-center bg-gray-100 ">

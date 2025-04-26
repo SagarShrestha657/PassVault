@@ -3,6 +3,9 @@ import { axiosInstance } from "../lib/axios";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import { ToastContainer, toast } from 'react-toastify';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css'; 
+
 
 const ChangePassword = () => {
     const [newPassword, setNewPassword] = useState("");
@@ -27,6 +30,7 @@ const ChangePassword = () => {
         }
 
         try {
+            NProgress.start();
             const res = await axiosInstance.post("/changepassword", { newPassword }, { withCredentials: true })
             toast.success(res.data.message)
             setNewPassword("")
@@ -34,6 +38,9 @@ const ChangePassword = () => {
         } catch (err) {
             if (err.response.data.message)
                 setError(err.response.data.message);
+        }
+        finally {
+            NProgress.done();
         }
     };
 
@@ -49,6 +56,7 @@ const ChangePassword = () => {
     const checkcode = async () => {
         if (code) {
             try {
+                NProgress.start();
                 const email = User.email;
                 await axiosInstance.post("/checkotp", { code, email }, { withCredentials: true })
                 setchangecontent(true)
@@ -58,6 +66,9 @@ const ChangePassword = () => {
                 } else {
                     seterror("something went wrong. please try again .")
                 }
+            }
+            finally {
+                NProgress.done();
             }
         } else {
             seterror("Enter code")

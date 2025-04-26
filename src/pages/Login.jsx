@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import { axiosInstance } from "../lib/axios";
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+
 
 const Login = () => {
   const [login, setlogin] = useState({ email: "", password: "" })
@@ -18,14 +21,17 @@ const Login = () => {
 
   const savelogin = async () => {
     try {
+      NProgress.start()
       let res = await axiosInstance.post("/login", login)
       const data = { username: res.data.username, email: res.data.email }
       if (!res.data.emailverification) {
         await user(data)
+        NProgress.done()
         window.location.href = "/emailverification"
       } else {
         await user(data)
         await checkAuth()
+        NProgress.done()
         navigate("/", { replace: true })
       }
     } catch (error) {
@@ -33,7 +39,10 @@ const Login = () => {
         seterror(error.response.data.message)
       }
     }
-    setlogin({ email: "", password: "" })
+    finally {
+      NProgress.done()
+      setlogin({ email: "", password: "" })
+    }
   }
 
 

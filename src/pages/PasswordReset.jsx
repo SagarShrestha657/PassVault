@@ -3,6 +3,9 @@ import { axiosInstance } from "../lib/axios";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import { ToastContainer, toast } from 'react-toastify';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+
 
 const PasswordReset = () => {
     const [oldPassword, setOldPassword] = useState("");
@@ -27,6 +30,7 @@ const PasswordReset = () => {
         }
 
         try {
+            NProgress.start();
             const password = { oldpassword: oldPassword, newpassword: newPassword }
             const res = await axiosInstance.post("/resetpassword", password, { withCredentials: true })
             toast.success(res.data.message)
@@ -37,16 +41,24 @@ const PasswordReset = () => {
             if (err.response.data.message)
                 setError(err.response.data.message);
         }
+        finally {
+            NProgress.done();
+        }
     };
 
     const sendotp = async () => {
         try {
+            NProgress.start();
             const email = User.email
             await axiosInstance.post("/sendotp", { email }, { withCredentials: true })
+            NProgress.done();
             navigate("/changepassword", { replace: true })
 
         } catch (error) {
             setError(error.response.data.message)
+        }
+        finally {
+            NProgress.done();
         }
     };
 

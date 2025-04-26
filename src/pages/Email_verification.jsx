@@ -3,6 +3,8 @@ import React from 'react'
 import { axiosInstance } from '../lib/axios'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/useAuthStore'
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
 const Email_verification = () => {
     const [code, setcode] = useState("")
@@ -17,10 +19,12 @@ const Email_verification = () => {
     const savecode = async () => {
         if (code) {
             try {
+                NProgress.start();
                 const email = User.email;
                 await axiosInstance.post("/emailverification", { code, email })
                 await checkAuth()
-                navigate("/",{ replace: true })
+                NProgress.done();
+                navigate("/", { replace: true })
             } catch (error) {
                 if (error.response.data.message) {
                     seterror(error.response.data.message)
@@ -28,7 +32,10 @@ const Email_verification = () => {
                     seterror("something went wrong. please try again .")
                 }
             }
-        }else{
+            finally {
+                NProgress.done();
+            }
+        } else {
             seterror("Enter code");
         }
     };

@@ -7,29 +7,29 @@ const userschema = new mongoose.Schema(
             require: true,
         },
         email: {
-            type: "string",
+            type: String,
             required: true,
         },
         password: {
-            type: "string",
+            type: String,
             required: true,
         },
         verificationCode: {
-            type: "string",
+            type: String,
             default: null,
             expires: 60 * 10,
         },
         logins: [{
             Website: {
-                type: "string",
+                type: String,
                 required: true,
             },
             username: {
-                type: "string",
+                type: String,
                 required: true,
             },
             password: {
-                type: "string",
+                type: String,
                 required: true,
             },
             trash: {
@@ -47,32 +47,32 @@ const userschema = new mongoose.Schema(
         },
         device_info: {
             ip: {
-                type: "string",
+                type: String,
                 default: null,
             },
             browser: {
-                type: "string",
+                type: String,
                 default: null,
             },
             os: {
-                type: "string",
+                type: String,
                 default: null,
             },
             device: {
-                type: "string",
+                type: String,
                 default: null,
             },
             location: {
-                type: "string",
+                type: String,
                 default: null,
             },
         },
         url: [{
             originalUrl: {
-                type: "string",
+                type: String,
             },
             shortUrl: {
-                type: "string",
+                type: String,
             },
         }]
     }
