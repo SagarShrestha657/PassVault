@@ -4,9 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { axiosInstance } from '../lib/axios'
 import { useAuthStore } from '../store/useAuthStore'
 import { validate } from "email-validator"
-import nProgress from 'nprogress'
+import NProgress from 'nprogress';
 import 'nprogress/nprogress.css'; 
-
 
 const Email_address = () => {
   const [email, setemail] = useState("")
@@ -28,19 +27,18 @@ const Email_address = () => {
       return;
     }
     try {
+      NProgress.start()
       if (email) {
-        nProgress.start()
         const res = await axiosInstance.post("/emailaddress", { email })
         await user(res)
-        nProgress.done()
+        NProgress.done()
         navigate("/emailverification", { replace: true })
       }
     } catch (error) {
+      console.log(error)
       seterror(error.response.data.message)
     }
-    finally {
-      nProgress.done()
-    }
+    NProgress.done()
   }
   return (
     <>
