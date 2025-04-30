@@ -28,7 +28,7 @@ export const sendVerificationEmail = async (recipientEmail, verificationCode) =>
     <p style="font-size: 14px;">This code is valid for <strong>10 minutes</strong>. Do not share it with anyone.</p>
     <p style="font-size: 12px;">If you did not request this, please ignore this email.</p>
     
-    <a href="http://localhost:5173/emailverification" style="display: inline-block; margin-top: 20px; padding: 10px 20px; font-size: 16px; font-weight: bold; color: #2193b0; background: #ffffff; border-radius: 5px; text-decoration: none; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+    <a href="'https://pass-vault-black.vercel.app/emailverification' style="display: inline-block; margin-top: 20px; padding: 10px 20px; font-size: 16px; font-weight: bold; color: #2193b0; background: #ffffff; border-radius: 5px; text-decoration: none; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
         Verify Now
     </a>
     
@@ -58,7 +58,7 @@ export const sendWelcomeEmail = async (recipientEmail) => {
             <p style="font-size: 16px; margin-bottom: 15px;">Congratulations! Your email has been successfully verified.</p>
             <p style="font-size: 14px;">We’re excited to have you on board. Get ready to explore amazing features and secure Your logins.</p>
             
-            <a href="http://localhost:5173" style="display: inline-block; margin-top: 20px; padding: 10px 20px; font-size: 16px; font-weight: bold; color: #2193b0; background: #ffffff; border-radius: 5px; text-decoration: none; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+            <a href='https://pass-vault-black.vercel.app' style="display: inline-block; margin-top: 20px; padding: 10px 20px; font-size: 16px; font-weight: bold; color: #2193b0; background: #ffffff; border-radius: 5px; text-decoration: none; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
                 Go to Dashboard
             </a>
             
@@ -111,7 +111,7 @@ export const sendNewDeviceEmail = async (recipientEmail, activity) => {
             <td style="padding: 10px; border-bottom: 1px solid #e5e7eb;">${activity.device}</td>
           </tr>
         </table>
-        <p style="color: #4b5563; margin-top: 20px;">If this was you, no action is required. If not, please <a href="http://localhost:5173/resetpassword" style="color: #3b82f6; text-decoration: none;">reset your password</a> immediately.</p>
+        <p style="color: #4b5563; margin-top: 20px;">If this was you, no action is required. If not, please <a href='https://pass-vault-black.vercel.app/resetpassword' style="color: #3b82f6; text-decoration: none;">reset your password</a> immediately.</p>
         <p style="color: #4b5563;">Stay Safe, <br> <strong>PassVault Team</strong></p>
       </div>
     `;
@@ -146,7 +146,7 @@ export const sendPasswordChangeEmail = async (recipientEmail, activity) => {
           <tr><td style="padding: 10px;">🖥️ Browser</td><td style="padding: 10px;">${activity.browser}</td></tr>
           <tr><td style="padding: 10px;">💻 OS</td><td style="padding: 10px;">${activity.os}</td></tr>
         </table>
-        <p style="color: #4b5563; margin-top: 20px;">If this was you, no action is required. If not, please <a href="http://localhost:5173/resetpassword" style="color: #3b82f6; text-decoration: none;">reset your password</a> immediately.</p>
+        <p style="color: #4b5563; margin-top: 20px;">If this was you, no action is required. If not, please <a href='https://pass-vault-black.vercel.app/resetpassword' style="color: #3b82f6; text-decoration: none;">reset your password</a> immediately.</p>
         <p style="color: #4b5563; margin-top: 20px;">Stay Secure, <br> <strong>Your Security Team</strong></p>
       </div>
     `;
