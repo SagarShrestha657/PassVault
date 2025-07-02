@@ -103,36 +103,36 @@ const Trash = () => {
             <div className='w-full h-96 overflow-auto scrollbar-hide'>
               <table className='w-full table-fixed border border-gray-300 shadow-md rounded-md text-sm max-sm:text-xs'>
                 <thead>
-                  <tr className='flex w-full bg-blue-500 text-white'>
-                    <th className='w-[9%] p-1 '>DaysLeft</th>
-                    <th className='w-[27%] p-1'>Website</th>
-                    <th className='w-[27%] p-1'>Username</th>
-                    <th className='w-[27%] p-1'>Password</th>
-                    <th className='w-[10%] p-1'>Action</th>
+                  <tr className='flex w-full bg-blue-500 text-white text-sm max-sm:text-xs'>
+                    <th className='w-[9%] p-1 text-sm max-sm:text-xs'>DaysLeft</th>
+                    <th className='w-[27%] p-1 text-sm max-sm:text-xs'>Website</th>
+                    <th className='w-[27%] p-1 text-sm max-sm:text-xs'>Username</th>
+                    <th className='w-[27%] p-1 text-sm max-sm:text-xs'>Password</th>
+                    <th className='w-[10%] p-1 text-sm max-sm:text-xs'>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {logins.map((item, index) => (
                     <tr key={index} className='odd:bg-gray-100 even:bg-white flex w-full'>
-                      <td className='border border-blue-400 w-[9%] flex items-center justify-center font-bold'>
+                      <td className='border border-blue-400 w-[9%] flex items-center justify-center font-bold text-sm max-sm:text-xs'>
                         <span className={`${getColor(item.daysLeft)}`}>{item.daysLeft} Days</span>
                       </td>
-                      <td className='border border-blue-400 w-[27%] flex justify-between items-center px-1'>
+                      <td className='border border-blue-400 w-[27%] flex justify-between items-center px-1 text-sm max-sm:text-xs'>
                         <a href={item.site} className='overflow-auto'>{item.Website}</a>
                         <span className='cursor-pointer text-gray-500 hover:text-blue-500' onClick={() => coptext(item.site)}><FaCopy /></span>
                       </td>
-                      <td className='border border-blue-400 w-[27%] flex justify-between items-center px-1'>
+                      <td className='border border-blue-400 w-[27%] flex justify-between items-center px-1 text-sm max-sm:text-xs'>
                         <span className='overflow-auto '>{item.username}</span>
                         <span className='cursor-pointer text-gray-500 hover:text-blue-500' onClick={() => coptext(item.username)}><FaCopy /></span>
                       </td>
-                      <td className='border border-blue-400 w-[27%] flex justify-between items-center px-1'>
+                      <td className='border border-blue-400 w-[27%] flex justify-between items-center px-1 text-sm max-sm:text-xs'>
                         <span className='overflow-auto font-bold'>{hidepassword(item.password)}</span>
                         <span className='cursor-pointer text-gray-500 hover:text-blue-500' onClick={() => coptext(item.password)}><FaCopy /></span>
                       </td>
-                      <td className='border border-blue-400 w-[10%] flex gap-2 items-center justify-center'>
+                      <td className='border border-blue-400 w-[10%] flex gap-2 items-center justify-around text-sm max-sm:text-xs'>
                         <Dialog>
                           <DialogTrigger asChild>
-                            <span className='cursor-pointer text-green-500 hover:text-green-700'><FaTrashRestoreAlt /></span>
+                            <span className='cursor-pointer text-green-500  hover:text-green-700'><FaTrashRestoreAlt /></span>
                           </DialogTrigger>
                           <DialogContent>
                             <DialogHeader>

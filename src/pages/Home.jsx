@@ -172,35 +172,35 @@ const Home = () => {
                     {logins.length === 0 && <div className='pl-5 m-4' >No Logins to Show</div>}
                     {logins.length !== 0 &&
                         <div className='w-full h-96  overflow-auto scrollbar-hide'>
-                            <table className='w-full table-fixed  border border-gray-300 shadow-md rounded-md '>
+                            <table className="w-full table-fixed border border-gray-300 shadow-md rounded-md text-sm max-sm:text-xs">
                                 <thead >
-                                    <tr className='flex w-full bg-blue-500 text-white '>
-                                        <th className='  w-[30%]'>Website</th>
-                                        <th className=' w-[30%]'>Username</th>
-                                        <th className=' w-[30%]'>Password</th>
-                                        <th className=' w-[10%]'>Action</th>
+                                    <tr className="flex w-full bg-blue-500 text-white text-sm max-sm:text-xs">
+                                        <th className="w-[30%]">Website</th>
+                                        <th className="w-[30%]">Username</th>
+                                        <th className="w-[30%]">Password</th>
+                                        <th className="w-[10%]">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody >
                                     {logins.map((item, index) => {
-                                        return <tr key={index} className='odd:bg-gray-100 even:bg-white  flex w-full'>
-                                            <th className='border border-blue-400 w-[30%]  flex justify-between'>
-                                                <h3 className=' overflow-auto  pl-2 ' >  <a href="item.site">{item.Website}</a></h3>
-                                                <span className='mx-1  pt-[2px] font-semibold cursor-pointer text-gray-500 hover:text-blue-500 ' onClick={() => { coptext(item.site) }}><FaCopy /></span>
+                                        return <tr key={index} className="odd:bg-gray-100 even:bg-white  flex w-full">
+                                            <th className="border border-blue-400 w-[30%]  flex justify-between text-sm max-sm:text-xs">
+                                                <h3 className="overflow-auto  pl-2 " >  <a href="item.site">{item.Website}</a></h3>
+                                                <span className="mx-1  pt-[2px] font-semibold cursor-pointer text-gray-500 hover:text-blue-500 " onClick={() => { coptext(item.site) }}><FaCopy /></span>
                                             </th>
-                                            <th className='border border-blue-400 w-[30%]  flex justify-between'>
-                                                <h3 className='font-bold pl-2 text-left overflow-auto  ' >{item.username}</h3>
-                                                <span className='mx-1 pt-[2px]  font-semibold  cursor-pointer text-gray-500 hover:text-blue-500' onClick={() => { coptext(item.username) }}><FaCopy /></span>
+                                            <th className="border border-blue-400 w-[30%]  flex justify-between text-sm max-sm:text-xs">
+                                                <h3 className="font-bold pl-2 text-left overflow-auto  " >{item.username}</h3>
+                                                <span className="mx-1 pt-[2px]  font-semibold  cursor-pointer text-gray-500 hover:text-blue-500" onClick={() => { coptext(item.username) }}><FaCopy /></span>
                                             </th>
-                                            <th className='border border-blue-400 w-[30%]  flex justify-between'>
-                                                <h3 className='font-bold pl-2 text-left overflow-auto  ' >{hidepassword(item.password)}</h3>
-                                                <span className='mx-1 pt-[2px]  font-semibold cursor-pointer text-gray-500 hover:text-blue-500 ' onClick={() => { coptext(item.password) }}><FaCopy /></span>
+                                            <th className="border border-blue-400 w-[30%]  flex justify-between text-sm max-sm:text-xs">
+                                                <h3 className="font-bold pl-2 text-left overflow-auto  " >{hidepassword(item.password)}</h3>
+                                                <span className="mx-1 pt-[2px]  font-semibold cursor-pointer text-gray-500 hover:text-blue-500 " onClick={() => { coptext(item.password) }}><FaCopy /></span>
                                             </th>
-                                            <th className='border border-blue-400  w-[10%]  flex gap-2'>
-                                                <span className='m-auto cursor-pointer hover:text-gray-700 text-gray-500' onClick={() => { editpassword(item._id) }}><FaEdit /></span>
+                                            <th className="border border-blue-400  w-[10%]  flex gap-2 text-sm max-sm:text-xs">
+                                                <span className="m-auto cursor-pointer hover:text-gray-700 text-gray-500" onClick={() => { editpassword(item._id) }}><FaEdit /></span>
                                                 <Dialog >
                                                     <DialogTrigger asChild>
-                                                        <span className='m-auto cursor-pointer text-red-500 hover:text-red-700' ><MdDelete /></span>
+                                                        <span className="m-auto cursor-pointer text-red-500 hover:text-red-700" ><MdDelete /></span>
                                                     </DialogTrigger>
                                                     <DialogContent>
                                                         <DialogHeader>
